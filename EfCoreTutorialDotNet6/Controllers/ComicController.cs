@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace EfCoreTutorialDotNet6.Controllers
 {
@@ -7,22 +6,18 @@ namespace EfCoreTutorialDotNet6.Controllers
     [ApiController]
     public class ComicController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly DataContext context;
 
         public ComicController(DataContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Comic>>> Get()
-        {
-            var comics = await _context.Comics
-                //.Include(c => c.Teams)
-                //.ThenInclude(t => t.SuperHeroes)
-                .ToListAsync();
-
-            return Ok(comics); 
+        { 
+            var comics = await context.Comics.ToListAsync();
+            return Ok(comics);
         }
     }
 }
